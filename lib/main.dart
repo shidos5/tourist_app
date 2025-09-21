@@ -13,8 +13,9 @@ Future <void> main()async {
     url: dotenv.env['SUPABASE_URL']!,
     anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
   );
-  runApp(    BlocProvider(
-      create: (_) => AuthCubit(Supabase.instance.client),
+    final client = Supabase.instance.client;
+  runApp(BlocProvider(
+      create: (_) => AuthCubit(client)..checkAuthStatus(),
       child: const TouristApp(),
     ),);
 }

@@ -1,6 +1,9 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:tourist_app/ui/color/app_colors.dart';
 import 'package:tourist_app/ui/screens/explore/explore.dart';
+import 'package:tourist_app/ui/screens/trip/trips_screen.dart';
 
 class MainNavScreen extends StatefulWidget {
   const MainNavScreen({super.key});
@@ -14,7 +17,7 @@ class _MainNavScreenState extends State<MainNavScreen> {
 
   final List<Widget> _screens = [
     ExploreScreen(),
-    Center(child: Text("Trips")),
+    TripsScreen(),
     Center(child: Text("To-Do")),
     Center(child: Text("Map")),
     Center(child: Text("Profile")),

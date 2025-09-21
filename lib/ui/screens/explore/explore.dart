@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:tourist_app/ui/color/app_colors.dart';
 import 'package:tourist_app/services/unsplash_service.dart';
@@ -11,8 +13,10 @@ class ExploreScreen extends StatefulWidget {
 }
 
 class _ExploreScreenState extends State<ExploreScreen> {
-  TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
   List<Map<String, dynamic>> _filteredCities = [];
+  Map<String, String> _cityImages = {};
+  bool _isLoading = true;
   final List<String> _filters = [
     "Popular",
     "Beaches",
@@ -48,11 +52,27 @@ class _ExploreScreenState extends State<ExploreScreen> {
   void initState() {
     super.initState();
     _filteredCities = _cities; // show all initially
+    _loadCityImages();
+  }
+
+  Future<void> _loadCityImages() async {
+    setState(() => _isLoading = true);
+    try {
+      for (var city in _cities) {
+        final imageUrl = await _unsplashService.fetchCityPhoto(city["name"]);
+        if (imageUrl != null) {
+          _cityImages[city["name"]] = imageUrl;
+        }
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
+    }
   }
 
   Future<void> _refreshData() async {
-    await Future.delayed(const Duration(seconds: 2));
-    setState(() {});
+    await _loadCityImages();
   }
 
   @override
@@ -174,31 +194,27 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
                 const SizedBox(height: 12),
 
-                Column(
-                  children: _cities.map((city) {
-                    return FutureBuilder<String?>(
-                      future: _unsplashService.fetchCityPhoto(city["name"]),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-                        final imageUrl =
-                            snapshot.data ??
-                            "https://via.placeholder.com/400x200.png?text=No+Image";
-                        return _buildCityCard(
-                          imageUrl: imageUrl,
-                          city: city["name"],
-                          description: city["description"],
-                          rating: city["rating"],
-                          attractions: city["attractions"],
-                        );
-                      },
-                    );
-                  }).toList(),
-                ),
+                if (_isLoading)
+                  const Center(
+                    child: Padding(
+                      padding: EdgeInsets.all(32.0),
+                      child: CircularProgressIndicator(),
+                    ),
+                  )
+                else
+                  Column(
+                    children: _cities.map((city) {
+                      final imageUrl = _cityImages[city["name"]] ??
+                          "https://via.placeholder.com/400x200.png?text=No+Image";
+                      return _buildCityCard(
+                        imageUrl: imageUrl,
+                        city: city["name"],
+                        description: city["description"],
+                        rating: city["rating"],
+                        attractions: city["attractions"],
+                      );
+                    }).toList(),
+                  ),
 
                 const SizedBox(height: 80),
               ],
