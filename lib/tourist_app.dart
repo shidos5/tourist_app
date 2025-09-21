@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tourist_app/home_screen.dart';
+import 'package:tourist_app/ui/screens/auth/register_screen.dart';
+import 'package:tourist_app/ui/theme/app_theme.dart';
 
 class TouristApp extends StatelessWidget {
   const TouristApp({super.key});
@@ -7,11 +8,11 @@ class TouristApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home:HomeScreen()
+      debugShowCheckedModeBanner: false,
+      theme: AppTheme.lightTheme,  
+      darkTheme: AppTheme.darkTheme, 
+      themeMode: ThemeMode.system,
+      home:RegisterScreen()
     );
   }
 }
