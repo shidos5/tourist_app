@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:tourist_app/ui/screens/auth/sign_in_screen.dart';
-import 'home_screen.dart';
+import 'main_nav_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
     if (session != null) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) => const HomeScreen()),
+        MaterialPageRoute(builder: (_) => const MainNavScreen()),
       );
     } else {
       Navigator.pushReplacement(

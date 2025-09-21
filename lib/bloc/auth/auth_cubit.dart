@@ -12,6 +12,7 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthLoading());
     try {
       final response = await client.auth.signUp(
+        
         email: email,
         password: password,
       );
@@ -64,4 +65,14 @@ class AuthCubit extends Cubit<AuthState> {
       return message; // fallback to original
     }
   }
+  
+  Future<void> checkAuthStatus() async {
+  final user = client.auth.currentUser;
+  if (user != null) {
+    emit(AuthAuthenticated(user: user));
+  } else {
+    emit(AuthInitial());
+  }
+}
+
 }

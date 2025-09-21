@@ -15,7 +15,7 @@ class AppTheme {
     colorScheme: const ColorScheme.light(
       primary: AppColors.primary,
       secondary: AppColors.secondary,
-      background: AppColors.grayLight,
+      surface: AppColors.grayLight,
       error: AppColors.error,
     ),
     buttonTheme: const ButtonThemeData(
@@ -37,7 +37,7 @@ class AppTheme {
     colorScheme: const ColorScheme.dark(
       primary: AppColors.primary,
       secondary: AppColors.secondary,
-      background: AppColors.grayDark,
+      surface: AppColors.grayDark,
       error: AppColors.error,
     ),
     buttonTheme: const ButtonThemeData(
