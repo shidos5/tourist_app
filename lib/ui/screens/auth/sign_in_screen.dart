@@ -109,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 20),
                 
-                Container(
+                SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
@@ -123,11 +123,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             passCtrl.text.trim(),
                           );
                     },
-                    child:  Text("Register", style: TextStyle(color: AppColors.white)),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primary,
                       
                     ),
+                    child:  Text("Register", style: TextStyle(color: AppColors.white)),
                   ),
                 ),
               ],
