@@ -17,6 +17,7 @@ class AuthCubit extends Cubit<AuthState> {
         password: password,
       );
       if (response.user != null) {
+        await _saveUserData(response.user!);
         emit(AuthAuthenticated(user: response.user!));
       } else {
         emit(const AuthError("Sign up failed. Please try again."));
@@ -50,6 +51,18 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> signOut() async {
     await client.auth.signOut();
     emit(AuthInitial());
+  }
+
+  Future<void> _saveUserData(User user) async {
+    try {
+      await client.from('profiles').upsert({
+        'id': user.id,
+        'email': user.email,
+        'name': user.email?.split('@').first ?? '',
+      });
+    } catch (e) {
+      // Handle error saving user data
+    }
   }
 
   /// 🔹 Map Supabase errors to user-friendly messages

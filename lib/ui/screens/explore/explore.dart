@@ -1,9 +1,11 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:tourist_app/models/city.dart';
 import 'package:tourist_app/ui/color/app_colors.dart';
 import 'package:tourist_app/services/unsplash_service.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:tourist_app/ui/screens/explore/city_details_screen.dart';
 
 class ExploreScreen extends StatefulWidget {
   const ExploreScreen({super.key});
@@ -14,8 +16,7 @@ class ExploreScreen extends StatefulWidget {
 
 class _ExploreScreenState extends State<ExploreScreen> {
   final TextEditingController _searchController = TextEditingController();
-  List<Map<String, dynamic>> _filteredCities = [];
-  Map<String, String> _cityImages = {};
+  final Map<String, String> _cityImages = {};
   bool _isLoading = true;
   final List<String> _filters = [
     "Popular",
@@ -47,11 +48,218 @@ class _ExploreScreenState extends State<ExploreScreen> {
       "rating": 4.6,
       "attractions": 150,
     },
+        {
+      "name": "Cairo, Egypt",
+      "description": "Home to ancient pyramids and rich history",
+      "rating": 4.2,
+      "attractions": 120,
+    },
+         {
+      "name": "Khartoum, Sudan",
+      "description": "Where the Blue and White Nile meet",
+      "rating": 3.9,
+      "attractions": 120,
+    },
+      {
+      "name": "Dubai, UAE",
+      "description": "A city of superlatives and futuristic architecture",
+      "rating": 4.8,
+      "attractions": 190,
+    },
+      {
+      "name": "Marrakech, Morocco",
+      "description": "A city of vibrant colors and rich culture",
+      "rating": 4.7,
+      "attractions": 150,
+    },
+      {
+      "name": "Sydney, Australia",
+      "description": "Famous for its Opera House and stunning harbor",
+      "rating": 4.6,
+      "attractions": 130,
+    },
+      {
+      "name": "Rio de Janeiro, Brazil",
+      "description": "Known for its beaches, Carnival, and Christ the Redeemer statue",
+      "rating": 4.5,
+      "attractions": 140,
+    },
+      {
+      "name": "Rome, Italy",
+      "description": "A city rich in history with ancient ruins and art",
+      "rating": 4.8,
+      "attractions": 160,
+    },
+      {
+      "name": "Bangkok, Thailand",
+      "description": "A bustling city known for its vibrant street life and temples",
+      "rating": 4.4,
+      "attractions": 180,
+    },
+      {
+      "name": "Barcelona, Spain",
+      "description": "Famous for its art and architecture, including Gaudí's masterpieces",
+      "rating": 4.7,
+      "attractions": 140,
+    },
+      {
+      "name": "Istanbul, Turkey",
+      "description": "A city that straddles two continents with rich history and culture",
+      "rating": 4.6,
+      "attractions": 170,
+    },
+      {
+      "name": "Cape Town, South Africa",
+      "description": "Known for its stunning landscapes and Table Mountain",
+      "rating": 4.5,
+      "attractions": 110,
+    },
+      {
+      "name": "San Francisco, USA",
+      "description": "Famous for the Golden Gate Bridge and vibrant tech scene",
+      "rating": 4.6,
+      "attractions": 130,
+    },
+      {
+      "name": "Amsterdam, Netherlands",
+      "description": "Known for its canals, museums, and vibrant culture",
+      "rating": 4.7,
+      "attractions": 120,
+    },
+      {
+      "name": "Lisbon, Portugal",
+      "description": "A coastal city known for its historic sites and vibrant nightlife",
+      "rating": 4.5,
+      "attractions": 100,
+    },
+      {
+      "name": "Vienna, Austria",
+      "description": "Famous for its classical music heritage and imperial history",
+      "rating": 4.8,
+      "attractions": 110,
+    },
+      {
+      "name": "Prague, Czech Republic",
+      "description": "A city of a hundred spires with beautiful architecture",
+      "rating": 4.7,
+      "attractions": 115,
+    },
+      {
+      "name": "Edinburgh, Scotland",
+      "description": "Known for its historic and cultural attractions including the Edinburgh Castle",
+      "rating": 4.6,
+      "attractions": 90,
+    },
+      {
+      "name": "Venice, Italy",
+      "description": "Famous for its canals, gondolas, and Renaissance art",
+      "rating": 4.8,
+      "attractions": 105,
+    },
+      {
+      "name": "Athens, Greece",
+      "description": "A city rich in ancient history and archaeological sites",
+      "rating": 4.5,
+      "attractions": 130,
+    },
+      {
+      "name": "Seoul, South Korea",
+      "description": "A dynamic city blending modern skyscrapers with traditional palaces",
+      "rating": 4.6,
+      "attractions": 140,
+    },
+      {
+      "name": "Berlin, Germany",
+      "description": "Known for its vibrant culture, history, and nightlife",
+      "rating": 4.7,
+      "attractions": 150,
+    },
+      {
+      "name": "Hanoi, Vietnam",
+      "description": "A city known for its centuries-old architecture and rich culture",
+      "rating": 4.4,
+      "attractions": 125,
+    },
+      {
+      "name": "Budapest, Hungary",
+      "description": "Famous for its thermal baths and stunning architecture",
+      "rating": 4.6,
+      "attractions": 110,
+    },
+      {
+      "name": "Kuala Lumpur, Malaysia",
+      "description": "A bustling city known for its modern skyline and cultural diversity",
+      "rating": 4.5,
+      "attractions": 135,
+    },
+      {
+      "name": "Moscow, Russia",
+      "description": "A city rich in history with iconic landmarks like the Red Square and Kremlin",
+      "rating": 4.6,
+      "attractions": 145,
+    },
+      {
+      "name": "Florence, Italy",
+      "description": "The cradle of the Renaissance with world-class art and architecture",
+      "rating": 4.8,
+      "attractions": 95,
+    },
+      {
+      "name": "Dublin, Ireland",
+      "description": "Known for its literary history and vibrant pub culture",
+      "rating": 4.5,
+      "attractions": 100,
+    },
+      {
+      "name": "Zurich, Switzerland",
+      "description": "A global financial hub with beautiful lakeside scenery",
+      "rating": 4.7,
+      "attractions": 80,
+    },
+      {
+      "name": "Lima, Peru",
+      "description": "A city known for its rich history and culinary scene",
+      "rating": 4.3,
+      "attractions": 120,
+    },
+      {
+      "name": "Mexico City, Mexico",
+      "description": "A vibrant city with a rich cultural heritage and bustling markets",
+      "rating": 4.4,
+      "attractions": 160,
+    },
+      {
+      "name": "Buenos Aires, Argentina",
+      "description": "Known for its European-style architecture and tango music",
+      "rating": 4.5,
+      "attractions": 110,
+    },
+      {
+      "name": "Lagos, Nigeria",
+      "description": "A bustling city known for its vibrant culture and nightlife",
+      "rating": 4.2,
+      "attractions": 130,
+    },
+      {
+      "name": "Jakarta, Indonesia",
+      "description": "A sprawling metropolis known for its vibrant culture and cuisine",
+      "rating": 4.1,
+      "attractions": 140,
+    },
+      {
+      "name": "Helsinki, Finland",
+      "description": "A city known for its design, architecture, and coastal beauty",
+      "rating": 4.6,
+      "attractions": 85,
+    },
+
   ];
+  List<Map<String, dynamic>> _filteredCities = [];
+
   @override
   void initState() {
     super.initState();
-    _filteredCities = _cities; // show all initially
+    _filteredCities = _cities;
     _loadCityImages();
   }
 
@@ -78,8 +286,9 @@ class _ExploreScreenState extends State<ExploreScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      
       child: Scaffold(
-        backgroundColor: AppColors.grayLight,
+        backgroundColor: Theme.of(context).brightness == Brightness.dark ? AppColors.grayDark : AppColors.white,
         body: RefreshIndicator(
           onRefresh: _refreshData,
           child: SingleChildScrollView(
@@ -87,7 +296,6 @@ class _ExploreScreenState extends State<ExploreScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // 🔹 Header
                 Container(
                   padding: const EdgeInsets.all(16),
                   color: AppColors.primary,
@@ -117,17 +325,15 @@ class _ExploreScreenState extends State<ExploreScreen> {
                         onChanged: (value) {
                           setState(() {
                             _filteredCities = _cities
-                                .where(
-                                  (city) => city["name"].toLowerCase().contains(
-                                    value.toLowerCase(),
-                                  ),
-                                )
+                                .where((city) => city['name']
+                                    .toLowerCase()
+                                    .contains(value.toLowerCase()))
                                 .toList();
                           });
                         },
                         decoration: InputDecoration(
                           filled: true,
-                          fillColor: AppColors.white,
+                          fillColor: Theme.of(context).brightness == Brightness.dark ? AppColors.grayDark : AppColors.white,
                           hintText: "Search cities or countries...",
                           prefixIcon: const Icon(Icons.search),
                           border: OutlineInputBorder(
@@ -143,9 +349,9 @@ class _ExploreScreenState extends State<ExploreScreen> {
                     ],
                   ),
                 ),
-
+      
                 const SizedBox(height: 16),
-
+      
                 // 🔹 Filter Chips
                 SizedBox(
                   height: 40,
@@ -169,16 +375,16 @@ class _ExploreScreenState extends State<ExploreScreen> {
                           ),
                           onSelected: (_) {
                             setState(() => _selectedFilterIndex = index);
-                            // 🔹 Later: filter cities based on selection
+                            //  Later: filter cities based on selection
                           },
                         ),
                       );
                     },
                   ),
                 ),
-
+      
                 const SizedBox(height: 16),
-
+      
                 // 🔹 Featured Destinations
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -191,9 +397,9 @@ class _ExploreScreenState extends State<ExploreScreen> {
                     ),
                   ),
                 ),
-
+      
                 const SizedBox(height: 12),
-
+      
                 if (_isLoading)
                   const Center(
                     child: Padding(
@@ -201,21 +407,46 @@ class _ExploreScreenState extends State<ExploreScreen> {
                       child: CircularProgressIndicator(),
                     ),
                   )
+                else if (_filteredCities.isEmpty)
+                  const Center(
+                    child: Padding(
+                      padding: EdgeInsets.all(32.0),
+                      child: Text("No match found"),
+                    ),
+                  )
                 else
                   Column(
-                    children: _cities.map((city) {
+                    children: _filteredCities.map((city) {
                       final imageUrl = _cityImages[city["name"]] ??
                           "https://via.placeholder.com/400x200.png?text=No+Image";
-                      return _buildCityCard(
-                        imageUrl: imageUrl,
-                        city: city["name"],
-                        description: city["description"],
-                        rating: city["rating"],
-                        attractions: city["attractions"],
+                      return GestureDetector(
+                        onTap: () {
+                          final cityObject = City(
+                            name: city['name'],
+                            description: city['description'],
+                            rating: city['rating'],
+                            attractions: city['attractions'],
+                            images: [imageUrl],
+                          );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  CityDetailsScreen(city: cityObject, allCities: _cities),
+                            ),
+                          );
+                        },
+                        child: _buildCityCard(
+                          imageUrl: imageUrl,
+                          city: city["name"],
+                          description: city["description"],
+                          rating: city["rating"],
+                          attractions: city["attractions"],
+                        ),
                       );
                     }).toList(),
                   ),
-
+      
                 const SizedBox(height: 80),
               ],
             ),

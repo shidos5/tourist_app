@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tourist_app/bloc/auth/auth_cubit.dart';
-import 'package:tourist_app/home_screen.dart';
 import 'package:tourist_app/ui/color/app_colors.dart';
 import 'package:tourist_app/ui/screens/auth/sign_in_screen.dart';
+import 'package:tourist_app/ui/screens/home/main_nav_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -34,26 +34,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
           if (state is AuthAuthenticated) {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (_) => const HomeScreen()),
+              MaterialPageRoute(builder: (_) => const MainNavScreen()),
             );
           } else if (state is AuthError) {
-            // Map error messages to specific fields
-            setState(() {
-              emailError = null;
-              passError = null;
-
-              if (state.message.contains("email")) {
-                emailError = state.message;
-              } else if (state.message.contains("password")) {
-                passError = state.message;
-              } else {
-                // General error fallback (still show snackbar)
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(state.message),backgroundColor: AppColors.success,),
-                  
-                );
-              }
-            });
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.message),
+                backgroundColor: Colors.red,
+              ),
+            );
           }
         },
         builder: (context, state) {
